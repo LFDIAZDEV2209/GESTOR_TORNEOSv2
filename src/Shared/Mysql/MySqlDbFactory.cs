@@ -20,7 +20,7 @@ public class MySqlDbFactory : IDbFactory
 
     public ITeamRepository CreateTeamRepository()
     {
-        throw new NotImplementedException("TeamRepository no implementado aún");
+        return new TeamRepository(_connectionString);
     }
 
     public ITechnicalStaffRepository CreateTechnicalStaffRepository()

@@ -8,6 +8,7 @@ namespace GESTOR_TORNEOS.Modules.MainMenu;
 public class MainMenu
 {
     private readonly TournamentUI _tournamentUI;
+    private readonly TeamUI _teamUI;
 
     public MainMenu(string connectionString)
     {
@@ -16,11 +17,12 @@ public class MainMenu
         
         // Crear servicios
         var tournamentService = new TournamentService(factory.CreateTournamentRepository());
+        var teamService = new TeamService(factory.CreateTeamRepository());
         
         
         // Crear UIs
         _tournamentUI = new TournamentUI(tournamentService);
-       
+        _teamUI = new TeamUI(teamService);
     }
 
     public void Show()
@@ -57,9 +59,7 @@ public class MainMenu
                     break;
                 case '1':
                     Console.Clear();
-                    AnsiConsole.MarkupLine("[yellow]Módulo de equipos en desarrollo...[/]");
-                    AnsiConsole.WriteLine("Presione cualquier tecla para continuar...");
-                    Console.ReadKey();
+                    _teamUI.ShowMenu();
                     break;
                 case '2':
                     Console.Clear();
