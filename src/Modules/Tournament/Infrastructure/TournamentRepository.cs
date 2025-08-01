@@ -61,7 +61,27 @@ public class TournamentRepository : ITournamentRepository
 
     public List<Tournament> GetAll()
     {
-        throw new NotImplementedException();
+        var connection = _connection.GetConnection();
+        string query = "SELECT id, name, city, start_date, end_date FROM tournaments";
+        using var command = new MySqlCommand(query, connection);
+        using var reader = command.ExecuteReader();
+        
+        var tournaments = new List<Tournament>();
+        
+        while (reader.Read())
+        {
+            tournaments.Add(new Tournament
+            {
+                Id = reader.GetInt32(0),
+                Name = reader.GetString(1),
+                City = reader.GetString(2),
+                StartDate = reader.GetDateTime(3).Date,
+                EndDate = reader.GetDateTime(4).Date,
+                Teams = new List<Team>()
+            });
+        }
+        
+        return tournaments;
     }
 
     public bool Update(Tournament entity)

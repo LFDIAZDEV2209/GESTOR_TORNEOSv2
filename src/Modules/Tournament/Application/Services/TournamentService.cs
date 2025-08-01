@@ -26,4 +26,9 @@ public class TournamentService
     {
         _repo.Delete(id);
     }
+
+    public List<Tournament> GetAllTournaments()
+    {
+        return _repo.GetAll();
+    }
 }

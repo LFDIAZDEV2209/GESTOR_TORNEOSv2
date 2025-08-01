@@ -87,9 +87,27 @@ public class TournamentUI
 
     private void SearchTournament()
     {
-        var id = AnsiConsole.Ask<int>("[bold green]ID del torneo[/]");
-        var tournament = _service.GetTournamentById(id);
-        AnsiConsole.MarkupLine($"[bold green]Torneo encontrado:[/] {tournament.Name} - {tournament.City} - {tournament.StartDate:dd/MM/yyyy} - {tournament.EndDate:dd/MM/yyyy}");
+        var option = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+            .Title("[bold green]Desea buscar un torneo por ID o todos?[/]")
+            .PageSize(10)
+            .AddChoices(new[] { "ID", "Todos" })
+        );
+        if (option == "ID")
+        {
+            var id = AnsiConsole.Ask<int>("[bold green]ID del torneo[/]");
+            var tournament = _service.GetTournamentById(id);
+            AnsiConsole.MarkupLine($"[bold green]Torneo encontrado:[/] {tournament.Name} - {tournament.City} - {tournament.StartDate:dd/MM/yyyy} - {tournament.EndDate:dd/MM/yyyy}");
+        }
+        else if (option == "Todos")
+        {
+        var tournaments = _service.GetAllTournaments();
+        AnsiConsole.MarkupLine("[bold green]Torneos:[/]");
+        foreach (var tournament in tournaments)
+        {
+            AnsiConsole.MarkupLine($"{tournament.Id} - {tournament.Name} - {tournament.City} - {tournament.StartDate:dd/MM/yyyy} - {tournament.EndDate:dd/MM/yyyy}");
+        }
+        }
         AnsiConsole.WriteLine("Presione cualquier tecla para continuar...");
         Console.ReadKey();
     }
