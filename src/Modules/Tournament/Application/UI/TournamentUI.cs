@@ -96,7 +96,11 @@ public class TournamentUI
 
     private void DeleteTournament()
     {
-        throw new NotImplementedException();
+        var id = AnsiConsole.Ask<int>("[bold green]ID del torneo[/]");
+        _service.DeleteTournament(id);
+        AnsiConsole.MarkupLine($"[bold green]Torneo eliminado correctamente[/]");
+        AnsiConsole.WriteLine("Presione cualquier tecla para continuar...");
+        Console.ReadKey();
     }
 
     private void UpdateTournament()

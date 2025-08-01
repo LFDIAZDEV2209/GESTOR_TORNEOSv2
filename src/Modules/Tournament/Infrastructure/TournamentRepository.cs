@@ -29,7 +29,12 @@ public class TournamentRepository : ITournamentRepository
 
     public bool Delete(int id)
     {
-        throw new NotImplementedException();
+        var connection = _connection.GetConnection();
+        string query = "DELETE FROM tournaments WHERE id = @id";
+        using var command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@id", id);
+        command.ExecuteNonQuery();
+        return true;
     }
 
     public Tournament GetById(int id)

@@ -21,4 +21,9 @@ public class TournamentService
     {
         return _repo.GetById(id);
     }
+
+    public void DeleteTournament(int id)
+    {
+        _repo.Delete(id);
+    }
 }
