@@ -87,7 +87,11 @@ public class TournamentUI
 
     private void SearchTournament()
     {
-        throw new NotImplementedException();
+        var id = AnsiConsole.Ask<int>("[bold green]ID del torneo[/]");
+        var tournament = _service.GetTournamentById(id);
+        AnsiConsole.MarkupLine($"[bold green]Torneo encontrado:[/] {tournament.Name} - {tournament.City} - {tournament.StartDate:dd/MM/yyyy} - {tournament.EndDate:dd/MM/yyyy}");
+        AnsiConsole.WriteLine("Presione cualquier tecla para continuar...");
+        Console.ReadKey();
     }
 
     private void DeleteTournament()

@@ -16,4 +16,9 @@ public class TournamentService
     {
         _repo.Add(tournament);
     }
+
+    public Tournament GetTournamentById(int id)
+    {
+        return _repo.GetById(id);
+    }
 }

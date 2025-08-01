@@ -23,6 +23,6 @@ public class Tournament
 
     public override string ToString()
     {
-        return $"Id: {Id}, Name: {Name}, City: {City}, StartDate: {StartDate}, EndDate: {EndDate}, Teams: {Teams}";
+        return $"Id: {Id}, Name: {Name}, City: {City}, StartDate: {StartDate:yyyy-MM-dd}, EndDate: {EndDate:yyyy-MM-dd}, Teams: {Teams}";
     }
 }

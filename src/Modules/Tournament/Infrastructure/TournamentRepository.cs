@@ -34,7 +34,24 @@ public class TournamentRepository : ITournamentRepository
 
     public Tournament GetById(int id)
     {
-        throw new NotImplementedException();
+        var connection = _connection.GetConnection();
+        string query = "SELECT id, name, city, start_date, end_date FROM tournaments WHERE id = @id";
+        using var command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@id", id);
+        using var reader = command.ExecuteReader();
+        if (reader.Read())
+        {
+            return new Tournament
+            {
+                Id = reader.GetInt32(0),
+                Name = reader.GetString(1),
+                City = reader.GetString(2),
+                StartDate = reader.GetDateTime(3).Date,
+                EndDate = reader.GetDateTime(4).Date,
+                Teams = new List<Team>()
+            };
+        }
+        throw new Exception("Torneo no encontrado");
     }
 
     public List<Tournament> GetAll()
