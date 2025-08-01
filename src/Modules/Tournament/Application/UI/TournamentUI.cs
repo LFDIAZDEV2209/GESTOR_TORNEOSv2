@@ -83,6 +83,9 @@ public class TournamentUI
         };
         
         _service.CreateTournament(tournament);
+        AnsiConsole.MarkupLine($"[bold green]Torneo creado correctamente[/]");
+        AnsiConsole.WriteLine("Presione cualquier tecla para continuar...");
+        Console.ReadKey();
     }
 
     private void SearchTournament()
@@ -123,6 +126,23 @@ public class TournamentUI
 
     private void UpdateTournament()
     {
-        throw new NotImplementedException();
+        var id = AnsiConsole.Ask<int>("[bold green]ID del torneo[/]");
+        var name = AnsiConsole.Ask<string>("[bold green]Nombre del torneo[/]");
+        var city = AnsiConsole.Ask<string>("[bold green]Ciudad[/]");
+        var startDate = AnsiConsole.Ask<DateTime>("[bold green]Fecha de inicio[/]");
+        var endDate = AnsiConsole.Ask<DateTime>("[bold green]Fecha de fin[/]");
+        var tournament = new Tournament
+        {
+            Id = id,
+            Name = name,
+            City = city,
+            StartDate = startDate,
+            EndDate = endDate,
+            Teams = new List<Team>()
+        };
+        _service.UpdateTournament(tournament);
+        AnsiConsole.MarkupLine($"[bold green]Torneo actualizado correctamente[/]");
+        AnsiConsole.WriteLine("Presione cualquier tecla para continuar...");
+        Console.ReadKey();
     }
 }

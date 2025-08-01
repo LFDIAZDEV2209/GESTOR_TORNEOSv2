@@ -86,6 +86,15 @@ public class TournamentRepository : ITournamentRepository
 
     public bool Update(Tournament entity)
     {
-        throw new NotImplementedException();
+        var connection = _connection.GetConnection();
+        string query = "UPDATE tournaments SET name = @name, city = @city, start_date = @start_date, end_date = @end_date WHERE id = @id";
+        using var command = new MySqlCommand(query, connection);
+        command.Parameters.AddWithValue("@id", entity.Id);
+        command.Parameters.AddWithValue("@name", entity.Name);
+        command.Parameters.AddWithValue("@city", entity.City);
+        command.Parameters.AddWithValue("@start_date", entity.StartDate);
+        command.Parameters.AddWithValue("@end_date", entity.EndDate);
+        command.ExecuteNonQuery();
+        return true;
     }
 }

@@ -31,4 +31,9 @@ public class TournamentService
     {
         return _repo.GetAll();
     }
+
+    public void UpdateTournament(Tournament tournament)
+    {
+        _repo.Update(tournament);
+    }
 }
